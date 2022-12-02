@@ -1,0 +1,7 @@
+name: RumiyaLib
+version: '${project.version}'
+main: com.yikuni.mc.rumiyalib.RumiyaLib
+api-version: 1.19
+
+command:
+  debug:
