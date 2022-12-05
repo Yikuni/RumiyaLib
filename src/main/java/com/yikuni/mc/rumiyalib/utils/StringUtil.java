@@ -56,4 +56,5 @@ public class StringUtil {
         String[] result = new String[s.length() / limit + 1];
         return splitToArray(s, limit).toArray(result);
     }
+
 }

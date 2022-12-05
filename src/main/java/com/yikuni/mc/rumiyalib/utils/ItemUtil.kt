@@ -2,6 +2,9 @@
 package com.yikuni.mc.rumiyalib.utils
 
 
+import com.yikuni.mc.rumiyalib.inventory.ItemEnchant
+import com.yikuni.mc.rumiyalib.inventory.NBTPair
+import de.tr7zw.nbtapi.NBTItem
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.HoverEvent
 import net.md_5.bungee.api.chat.ItemTag
@@ -34,6 +37,21 @@ public val oreArray = arrayOf(
     Material.NETHER_QUARTZ_ORE
 )
 
+fun getItemText(itemStack: ItemStack): TextComponent {
+    val nbtItem = NBTItem(itemStack)
+    val item = Item(itemStack.type.key.key, 1, ItemTag.ofNbt(nbtItem.toString()))
+    val name: String
+    val itemMeta = itemStack.itemMeta
+    name = if (itemMeta!!.hasDisplayName()) {
+        itemMeta.displayName
+    } else {
+        itemStack.type.key.key
+    }
+    return TextComponent(
+        *ComponentBuilder().append("[").append(name)
+            .event(HoverEvent(HoverEvent.Action.SHOW_ITEM, item)).append("]").create()
+    )
+}
 
 fun createItem(name: String, material: Material, enchant: Enchantment? = null, level: Int = 0, lores: List<String>? = null, nbtMap: HashMap<NamespacedKey, String>? = null, count: Int = 1): ItemStack{
     val item = ItemStack(material, count)
@@ -66,6 +84,20 @@ fun createItem(name: String, material: Material, enchantMap: Map<Enchantment, In
         val container = itemMeta.persistentDataContainer
         nbtMap.forEach { (k, v) ->  container.set(k, PersistentDataType.STRING, v)}
     }
+    item.itemMeta = itemMeta
+    return item
+}
+
+fun createItem(name: String, material: Material, enchantList: List<ItemEnchant>, lores: List<String>, nbtList: List<NBTPair>, count: Int = 1): ItemStack{
+    val item = ItemStack(material, count)
+    val itemMeta = item.itemMeta!!
+    itemMeta.setDisplayName(name)
+    itemMeta.lore = lores
+    enchantList.forEach {
+        itemMeta.addEnchant(Enchantment.getByKey(NamespacedKey("minecraft", it.enchantment))!!, it.level, true)
+    }
+    val container = itemMeta.persistentDataContainer
+    nbtList.forEach { container.set(NamespacedKey(it.namespace, it.key), PersistentDataType.STRING, it.value)}
     item.itemMeta = itemMeta
     return item
 }

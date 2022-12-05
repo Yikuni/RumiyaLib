@@ -11,7 +11,6 @@ public final class RumiyaLib extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         instance = this;
-        this.getCommand("debug").setExecutor(new DebugCommand());
         getLogger().info("Loaded RumiyaLib");
     }
 

@@ -143,4 +143,30 @@ class PlayerActionBarSender(private val player: Player): Sender {
         val components = ComponentBuilder().append(msg).color(color).create()
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, *components)
     }
+
+
+}
+
+object ConsoleSender:Sender{
+    private val log: Logger = RumiyaLib.getInstance().logger
+    override fun info(msg: String) {
+        log.info(msg)
+    }
+
+    override fun warn(msg: String) {
+        Bukkit.broadcastMessage("${ChatColor.YELLOW}$msg")
+        log.warning(msg)
+    }
+
+    override fun error(msg: String) {
+        log.severe(msg)
+    }
+
+    override fun success(msg: String) {
+        log.info(msg)
+    }
+
+    override fun primary(msg: String) {
+        log.info(msg)
+    }
 }
