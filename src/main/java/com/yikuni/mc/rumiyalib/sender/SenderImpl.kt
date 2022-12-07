@@ -50,7 +50,6 @@ class PlayerSender(private val player: Player): Sender {
  * 服务器消息发送器
  */
 object ServerSender: Sender {
-    private val log: Logger = RumiyaLib.getInstance().logger
     override fun info(msg: String) {
         Bukkit.broadcastMessage("${ChatColor.DARK_GREEN}[Server] ${ChatColor.GRAY}$msg")
     }
@@ -148,25 +147,24 @@ class PlayerActionBarSender(private val player: Player): Sender {
 }
 
 object ConsoleSender:Sender{
-    private val log: Logger = RumiyaLib.getInstance().logger
     override fun info(msg: String) {
-        log.info(msg)
+        RumiyaLib.getInstance().logger.info(msg)
     }
 
     override fun warn(msg: String) {
         Bukkit.broadcastMessage("${ChatColor.YELLOW}$msg")
-        log.warning(msg)
+        RumiyaLib.getInstance().logger.warning(msg)
     }
 
     override fun error(msg: String) {
-        log.severe(msg)
+        RumiyaLib.getInstance().logger.severe(msg)
     }
 
     override fun success(msg: String) {
-        log.info(msg)
+        RumiyaLib.getInstance().logger.info(msg)
     }
 
     override fun primary(msg: String) {
-        log.info(msg)
+        RumiyaLib.getInstance().logger.info(msg)
     }
 }

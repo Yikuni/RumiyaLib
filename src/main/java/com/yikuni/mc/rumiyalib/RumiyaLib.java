@@ -1,6 +1,6 @@
 package com.yikuni.mc.rumiyalib;
 
-import com.yikuni.mc.rumiyalib.command.DebugCommand;
+import com.yikuni.mc.reflect.PluginLoader;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class RumiyaLib extends JavaPlugin {
@@ -10,8 +10,8 @@ public final class RumiyaLib extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        PluginLoader.run(RumiyaLib.class);
         instance = this;
-        getLogger().info("Loaded RumiyaLib");
     }
 
     @Override
