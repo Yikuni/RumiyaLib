@@ -2,6 +2,7 @@
 package com.yikuni.mc.rumiyalib.utils
 
 
+import com.yikuni.mc.rumiyalib.RumiyaLib
 import com.yikuni.mc.rumiyalib.inventory.ItemEnchant
 import com.yikuni.mc.rumiyalib.inventory.NBTPair
 import de.tr7zw.nbtapi.NBTItem
@@ -14,6 +15,7 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
 
 public val oreArray = arrayOf(
@@ -55,7 +57,7 @@ fun getItemText(itemStack: ItemStack): TextComponent {
 
 fun createItem(name: String, material: Material, enchant: Enchantment? = null, level: Int = 0, lores: List<String>? = null, nbtMap: HashMap<NamespacedKey, String>? = null, count: Int = 1): ItemStack{
     val item = ItemStack(material, count)
-    val itemMeta = item.itemMeta!!
+    val itemMeta = item.itemMeta?: createItemMeta(material)!!
     itemMeta.setDisplayName(name)
     if (lores != null){
         itemMeta.lore = lores
@@ -73,7 +75,7 @@ fun createItem(name: String, material: Material, enchant: Enchantment? = null, l
 
 fun createItem(name: String, material: Material, enchantMap: Map<Enchantment, Int>, lores: List<String>, nbtMap: Map<NamespacedKey, String>? = null, count: Int = 1): ItemStack{
     val item = ItemStack(material, count)
-    val itemMeta = item.itemMeta!!
+    val itemMeta = item.itemMeta?: createItemMeta(material)!!
     itemMeta.setDisplayName(name)
     itemMeta.lore = lores
     enchantMap.forEach { (k, v)->
@@ -90,7 +92,7 @@ fun createItem(name: String, material: Material, enchantMap: Map<Enchantment, In
 
 fun createItem(name: String, material: Material, enchantList: List<ItemEnchant>, lores: List<String>, nbtList: List<NBTPair>, count: Int = 1): ItemStack{
     val item = ItemStack(material, count)
-    val itemMeta = item.itemMeta!!
+    val itemMeta = item.itemMeta?: createItemMeta(material)!!
     itemMeta.setDisplayName(name)
     itemMeta.lore = lores
     enchantList.forEach {
@@ -124,4 +126,8 @@ fun isOre(type: Material): Boolean{
         Material.NETHER_GOLD_ORE,
         Material.NETHER_QUARTZ_ORE
     )
+}
+
+fun createItemMeta(material: Material): ItemMeta?{
+    return RumiyaLib.getInstance().server.itemFactory.getItemMeta(material)
 }

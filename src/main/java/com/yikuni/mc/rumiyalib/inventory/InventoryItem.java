@@ -25,11 +25,11 @@ public class InventoryItem {
         InventoryItem item = new InventoryItem();
         ItemMeta itemMeta = itemStack.getItemMeta();
         // 设置附魔
-        itemMeta.getEnchants().forEach((enchantment, level) -> {
-            item.enchants.add(new ItemEnchant(enchantment.getKey().getKey(), level));
-        });
-
+        assert itemMeta != null;
+        itemMeta.getEnchants().forEach((enchantment, level) ->
+                item.enchants.add(new ItemEnchant(enchantment.getKey().getKey(), level)));
         item.lores = itemMeta.getLore();
+        if (item.lores == null) item.lores = new ArrayList<>();
         PersistentDataContainer container = itemMeta.getPersistentDataContainer();
         Set<NamespacedKey> keys = container.getKeys();
         for (NamespacedKey key: keys){
