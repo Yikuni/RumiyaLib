@@ -13,6 +13,28 @@ import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import java.util.logging.Logger
 
+class PlayerToPlayerSender(private val from: String, private val to: Player): Sender{
+    override fun info(msg: String) {
+        primary(msg)
+    }
+
+    override fun warn(msg: String) {
+        primary(msg)
+    }
+
+    override fun error(msg: String) {
+        primary(msg)
+    }
+
+    override fun success(msg: String) {
+        primary(msg)
+    }
+
+    override fun primary(msg: String) {
+        to.sendMessage("${ChatColor.RED}[ ${ChatColor.WHITE}$from ${ChatColor.RED}-> ${ChatColor.WHITE}${to.name} ${ChatColor.RED}] ${ChatColor.WHITE}$msg")
+    }
+
+}
 /**
  * 玩家消息发送器
  */
