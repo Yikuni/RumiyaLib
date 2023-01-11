@@ -10,6 +10,7 @@ import net.md_5.bungee.api.chat.BaseComponent
 import net.md_5.bungee.api.chat.ComponentBuilder
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import java.util.logging.Logger
 
@@ -34,6 +35,33 @@ class PlayerToPlayerSender(private val from: String, private val to: Player): Se
         to.sendMessage("${ChatColor.RED}[ ${ChatColor.WHITE}$from ${ChatColor.RED}-> ${ChatColor.WHITE}${to.name} ${ChatColor.RED}] ${ChatColor.WHITE}$msg")
     }
 
+}
+class CommandSenderSender(private val sender: CommandSender): Sender{
+    private val log: Logger = RumiyaLib.getInstance().logger
+    override fun info(msg: String) {
+        sender.sendMessage("${ChatColor.GRAY}$msg")
+        log.info("Player ${sender.name} received msg: $msg")
+    }
+
+    override fun warn(msg: String) {
+        sender.sendMessage("${ChatColor.YELLOW}$msg")
+        log.info("Player ${sender.name} received msg: $msg")
+    }
+
+    override fun error(msg: String) {
+        sender.sendMessage("${ChatColor.RED}$msg")
+        log.info("Player ${sender.name} received msg: $msg")
+    }
+
+    override fun success(msg: String) {
+        sender.sendMessage("${ChatColor.GREEN}$msg")
+        log.info("Player ${sender.name} received msg: $msg")
+    }
+
+    override fun primary(msg: String) {
+        sender.sendMessage("${ChatColor.BLUE}$msg")
+        log.info("Player ${sender.name} received msg: $msg")
+    }
 }
 /**
  * 玩家消息发送器
