@@ -1,12 +1,8 @@
 package com.yikuni.mc.rumiyalib.command
 
-import com.yikuni.mc.reflect.annotation.YikuniCommand
 import com.yikuni.mc.reflect.annotation.YikuniEvent
 import com.yikuni.mc.rumiyalib.RumiyaLib
 import com.yikuni.mc.rumiyalib.utils.sender
-import org.bukkit.command.Command
-import org.bukkit.command.CommandExecutor
-import org.bukkit.command.CommandSender
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerCommandPreprocessEvent

@@ -2,6 +2,7 @@ package com.yikuni.mc.rumiyalib.command
 
 import com.yikuni.mc.reflect.annotation.YikuniCommand
 import com.yikuni.mc.rumiyalib.RumiyaLib
+import com.yikuni.mc.rumiyalib.utils.sender
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -18,6 +19,7 @@ class ForbiddenBan: CommandExecutor, TabCompleter {
                 if (args.size != 2 || RumiyaLib.forbiddenBanTable.data.contains(args[1])) false
                 else{
                     RumiyaLib.forbiddenBanTable.add(args[1])
+                    sender.sender().success("${args[0]} is added to white list")
                     RumiyaLib.forbiddenBanTable.save()
                     true
                 }
@@ -26,6 +28,8 @@ class ForbiddenBan: CommandExecutor, TabCompleter {
                 if (args.size != 2 || !RumiyaLib.forbiddenBanTable.data.contains(args[1])) false
                 else{
                     RumiyaLib.forbiddenBanTable.remove(args[1])
+                    sender.sender().success("${args[0]} is removed from white list")
+                    RumiyaLib.forbiddenBanTable.save()
                     true
                 }
             }
