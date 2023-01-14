@@ -29,7 +29,7 @@
 
     <groupId>com.yikuni.mc</groupId>
     <artifactId>rumiya-lib</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <packaging>jar</packaging>
 
     <name>Rumiya Lib</name>
@@ -217,7 +217,7 @@
         <dependency>
             <groupId>com.yikuni</groupId>
             <artifactId>spigot-reflect</artifactId>
-            <version>1.2.0</version>
+            <version>1.2.1</version>
         </dependency>
         <dependency>
             <groupId>de.tr7zw</groupId>
